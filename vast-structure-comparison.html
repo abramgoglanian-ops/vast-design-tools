@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vast Drive — Structure Options</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #F5F3EF; color: #1A1916; padding: 40px; max-width: 1180px; margin: 0 auto; }
+  header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid #D8D5CE; }
+  .wordmark { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+  .doc-title { font-size: 20px; font-weight: 500; letter-spacing: -0.02em; }
+  .doc-subtitle { font-size: 12px; color: #7A7870; margin-top: 3px; }
+  .doc-meta { text-align: right; }
+
+  .agree { background: #E1F5EE; border: 1px solid #9FE1CB; border-radius: 8px; padding: 14px 18px; margin-bottom: 20px; }
+  .agree-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #0F5A46; margin-bottom: 6px; }
+  .agree-text { font-size: 13px; color: #0F5A46; line-height: 1.6; }
+  .agree-text b { font-weight: 600; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; background: #FFFFFF; border: 1px solid #D8D5CE; border-radius: 8px; padding: 12px 18px; margin-bottom: 12px; }
+  .legend .li { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #3A3830; }
+  .legend .sw { width: 13px; height: 13px; border-radius: 3px; flex-shrink: 0; }
+  .legend-note { font-size: 12px; color: #7A7870; font-style: italic; margin-bottom: 20px; line-height: 1.55; }
+  .legend-note b { font-weight: 600; }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 22px; }
+  .col { background: #FFFFFF; border: 1px solid #D8D5CE; border-radius: 8px; padding: 18px 18px 20px; }
+  .col.rec { border-color: #EF9F27; box-shadow: 0 0 0 2px #FAEEDA; }
+  .col-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: #9A9890; }
+  .col.rec .col-tag { color: #7A4A0A; }
+  .col-name { font-size: 15px; font-weight: 600; margin: 2px 0 3px; }
+  .col-who { font-size: 11px; color: #7A7870; margin-bottom: 12px; }
+
+  .mini-label { font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #9A9890; margin: 12px 0 5px; }
+  .tree { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #3A3830; line-height: 1.7; }
+  .tree .zone { color: #1A1916; }
+  .tree .team { color: #8C2020; }
+  .tree .shared { color: #0C447C; }
+  .tree .sub { color: #7A7870; padding-left: 10px; }
+  .rule { font-size: 11.5px; color: #3A3830; line-height: 1.55; background: #F5F3EF; border-radius: 6px; padding: 8px 10px; }
+  ul { list-style: none; }
+  li { font-size: 11.5px; line-height: 1.5; padding: 3px 0 3px 14px; position: relative; }
+  li::before { position: absolute; left: 0; }
+  .pro li::before { content: "+"; color: #1D5C35; font-weight: 600; }
+  .con li::before { content: "!"; color: #8C2020; font-weight: 600; }
+  .pro li { color: #14512F; } .con li { color: #7A2018; }
+
+  .question { background: #1A1916; border-radius: 8px; padding: 22px 26px; margin-bottom: 22px; }
+  .q-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #7A7870; margin-bottom: 10px; }
+  .q-text { font-size: 15px; color: #F5F3EF; line-height: 1.65; }
+  .q-text b { color: #EF9F27; font-weight: 500; }
+
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #9A9890; margin: 4px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #D8D5CE; }
+  .blend { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .blend-card { background: #FFFFFF; border: 1px solid #D8D5CE; border-radius: 8px; padding: 18px 20px; }
+  .rule-row { font-size: 12.5px; color: #1A1916; line-height: 1.5; padding: 6px 0; border-bottom: 1px solid #ECEAE5; }
+  .rule-row:last-child { border-bottom: none; }
+  .rule-row b { font-weight: 600; color: #7A4A0A; }
+  footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid #D8D5CE; font-size: 11px; color: #9A9890; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wordmark">Vast</div>
+  <div class="doc-meta">
+    <div class="doc-title">Drive structure — three options</div>
+    <div class="doc-subtitle">For alignment: Abram · James · Rebecca</div>
+  </div>
+</header>
+
+<div class="agree">
+  <div class="agree-label">What we already agree on</div>
+  <div class="agree-text">Remove <b>Evergreen</b> (it confused everyone). <b>Flat access</b> for the whole team. <b>Reference lives with its subject</b>, not in a separate bucket. Cross-team work gets <b>one shared home</b>. <b>Design Systems</b> stays. The disagreement is narrow: see the one open question below.</div>
+</div>
+
+<div class="legend">
+  <div class="li"><span class="sw" style="background:#0C447C"></span>Shared cross-team work (the de-silo layer)</div>
+  <div class="li"><span class="sw" style="background:#8C2020"></span>Team / discipline folder</div>
+  <div class="li"><span class="sw" style="background:#1A1916"></span>Shared system &amp; content zone (not team-owned)</div>
+  <div class="li"><span class="sw" style="background:#7A7870"></span>Detail / sub-item (or not yet decided)</div>
+</div>
+<div class="legend-note">Quick read: the more <b style="color:#8C2020">red</b>, the more team-owned folders. Option A has just one (Web &amp; Digital, the exception Rebecca flagged); B and C surface every discipline as its own folder. All three keep the <b style="color:#0C447C">blue</b> shared layer where cross-team work lives, so no option loses de-siloing entirely.</div>
+
+<div class="cols">
+
+  <!-- A -->
+  <div class="col">
+    <div class="col-tag">Option A</div>
+    <div class="col-name">Lifecycle &amp; shared</div>
+    <div class="col-who">Original (Abram + James)</div>
+    <div class="mini-label">Top level</div>
+    <div class="tree">
+      <div class="zone">00 Start Here</div>
+      <div class="zone">01 Design Systems</div>
+      <div class="zone">02 Evergreen</div>
+      <div class="zone">03 Templates</div>
+      <div class="zone">04 Products &amp; Programs</div>
+      <div class="shared">05 Initiatives</div>
+      <div class="team">06 Web &amp; Digital</div>
+      <div class="zone">07 Department</div>
+      <div class="zone">08 Archive</div>
+    </div>
+    <div class="mini-label">The rule</div>
+    <div class="rule">"Does it have an end date?" Cross-team work goes to 05 Initiatives.</div>
+    <div class="mini-label">Pros</div>
+    <ul class="pro"><li>One clear filing rule</li><li>Organized by work type, not team</li><li>Clean numbered spine</li></ul>
+    <div class="mini-label">Watch-outs</div>
+    <ul class="con"><li>Evergreen confused everyone</li><li>Digital got its own folder; other teams didn't (inconsistent)</li><li>Teams feel their work is scattered</li></ul>
+  </div>
+
+  <!-- B -->
+  <div class="col">
+    <div class="col-tag">Option B</div>
+    <div class="col-name">Discipline folders</div>
+    <div class="col-who">Rebecca's notes</div>
+    <div class="mini-label">Top level</div>
+    <div class="tree">
+      <div class="zone">00 Start Here</div>
+      <div class="zone">01 Design Systems</div>
+      <div class="zone">Products</div>
+      <div class="shared">Programs &amp; Initiatives</div>
+      <div class="sub">Missions · Partnerships · Events</div>
+      <div class="team">Communications</div>
+      <div class="team">Web &amp; Digital</div>
+      <div class="team">Merchandise</div>
+      <div class="team">Industrial Design</div>
+      <div class="team">Facilities</div>
+      <div class="sub">(Templates / Dept / Archive: TBD)</div>
+    </div>
+    <div class="mini-label">The rule</div>
+    <div class="rule">By team / discipline, plus a Products vs Programs split. Cross-team → Programs &amp; Initiatives.</div>
+    <div class="mini-label">Pros</div>
+    <ul class="pro"><li>Each team has a clear, visible home</li><li>Consistent (all disciplines top-level)</li><li>Kills Evergreen; matches how teams think of their own work</li></ul>
+    <div class="mini-label">Watch-outs</div>
+    <ul class="con"><li>Surfaces team silos at the top</li><li>No single filing rule yet</li><li>Products vs Programs boundary is fuzzy</li><li>Cross-team work can get pulled into team folders</li></ul>
+  </div>
+
+  <!-- C -->
+  <div class="col rec">
+    <div class="col-tag">Option C · recommended</div>
+    <div class="col-name">The blend</div>
+    <div class="col-who">Best of both</div>
+    <div class="mini-label">Top level</div>
+    <div class="tree">
+      <div class="zone">00 Start Here</div>
+      <div class="zone">01 Design Systems</div>
+      <div class="zone">Products</div>
+      <div class="shared">Programs &amp; Initiatives</div>
+      <div class="sub">Missions · Partnerships · Events</div>
+      <div class="team">Communications</div>
+      <div class="team">Web &amp; Digital</div>
+      <div class="team">Merchandise</div>
+      <div class="team">Industrial Design</div>
+      <div class="team">Facilities</div>
+      <div class="zone">Templates · Department · Archive</div>
+    </div>
+    <div class="mini-label">The rule</div>
+    <div class="rule">Cross-team or time-bound → Programs &amp; Initiatives. A team's own ongoing work → that team's folder. About a product → Products. A system/standard → Design Systems.</div>
+    <div class="mini-label">Pros</div>
+    <ul class="pro"><li>Kills Evergreen (agreed)</li><li>Visible team homes (Rebecca)</li><li>Keeps an enforced shared cross-team layer (James / de-silo)</li><li>One clear filing rule</li></ul>
+    <div class="mini-label">Watch-outs</div>
+    <ul class="con"><li>More top-level folders</li><li>Needs discipline to keep cross-team work in the shared layer</li><li>Numbering scheme needs a rethink</li></ul>
+  </div>
+
+</div>
+
+<div class="question">
+  <div class="q-label">The one open question</div>
+  <div class="q-text">Should each team's ongoing work get its own top-level folder? <b>Rebecca: yes. Original: no.</b> The blend says <b>yes, with a firm rule</b> that anything cross-team or time-bound always lives in Programs &amp; Initiatives. That keeps team homes visible without letting shared work fragment.</div>
+</div>
+
+<div class="section-label">How the blend files things (the new rule, in order)</div>
+<div class="blend">
+  <div class="blend-card">
+    <div class="rule-row"><b>1.</b> Cross-team, or has an end date? → <b>Programs &amp; Initiatives</b> (Missions, Partnerships, Events). Everyone contributes here.</div>
+    <div class="rule-row"><b>2.</b> About a specific product? → <b>Products</b> (its hub).</div>
+    <div class="rule-row"><b>3.</b> A toolkit, standard, or brand system? → <b>Design Systems</b>.</div>
+  </div>
+  <div class="blend-card">
+    <div class="rule-row"><b>4.</b> One team's own ongoing work? → <b>that team's folder</b> (Comms, Merch, ID, Facilities, Web &amp; Digital). Open to all.</div>
+    <div class="rule-row"><b>5.</b> A reusable starting point? → <b>Templates</b>. Retired? → <b>Archive</b>.</div>
+    <div class="rule-row"><b>Assets:</b> <b>_Approved Assets</b> (vetted, by type) + the deep <b>Media Library</b> — unchanged in all three options.</div>
+  </div>
+</div>
+
+<footer>
+  The blend adopts Rebecca's clearly-right points (remove Evergreen, distribute reference, give disciplines consistent homes) and keeps the shared cross-team layer so de-siloing still holds. Open details to settle if the blend is chosen: the numbering scheme, the Products vs Programs boundary, whether Brand gets its own folder, and where brand collateral lands. — For discussion.
+</footer>
+
+</body>
+</html>
