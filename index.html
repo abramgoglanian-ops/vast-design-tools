@@ -5,60 +5,231 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vast Design Tools</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Azeret+Mono:wght@400;500&display=swap');
+
+  :root {
+    --meteorite: #2A2C2F;
+    --asteroid:  #736E69;
+    --pebble:    #9E958C;
+    --moon-rock: #B3ABA3;
+    --warm-gray: #ECE8E3;
+    --vapor:     #F5F3F1;
+    --solar:     #FF5623;
+    --solar-dim: #CC3D10;
+    --solar-hover: #E64D1F;
+    --white:     #FFFFFF;
+    --warm-white: #FDFCF4;
+    --border:    rgba(179, 171, 163, 0.22);
+    --shadow-sm: 0 2px 8px rgba(42, 44, 47, 0.06);
+    --shadow-md: 0 6px 24px rgba(42, 44, 47, 0.10);
+  }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Inter', sans-serif; background: #F5F3EF; color: #1A1916; padding: 56px 32px; }
-  .wrap { max-width: 760px; margin: 0 auto; }
-  header { margin-bottom: 32px; padding-bottom: 22px; border-bottom: 1px solid #D8D5CE; }
-  .wordmark { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #1A1916; }
-  h1 { font-size: 28px; font-weight: 500; letter-spacing: -0.02em; margin-top: 8px; }
-  .sub { font-size: 14px; color: #7A7870; margin-top: 6px; line-height: 1.5; }
-  .cards { display: grid; gap: 12px; }
-  a.card { display: block; text-decoration: none; background: #FFFFFF; border: 1px solid #D8D5CE; border-radius: 10px; padding: 20px 22px; transition: border-color .12s ease, transform .05s ease; }
-  a.card:hover { border-color: #1A1916; }
-  a.card:active { transform: scale(0.995); }
-  .card-title { font-size: 17px; font-weight: 500; color: #1A1916; }
-  .card-desc { font-size: 13px; color: #5A5850; line-height: 1.55; margin-top: 5px; }
-  .card-go { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #0C447C; margin-top: 10px; }
-  footer { margin-top: 34px; padding-top: 18px; border-top: 1px solid #D8D5CE; font-size: 12px; color: #9A9890; line-height: 1.55; }
+
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--meteorite);
+    padding: 80px 48px;
+    min-height: 100vh;
+  }
+
+  .wrap { max-width: 800px; margin: 0 auto; }
+
+  /* ── Header ───────────────────────────────────────── */
+
+  header {
+    margin-bottom: 56px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .wordmark {
+    font-family: 'Azeret Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pebble);
+  }
+
+  h1 {
+    font-size: clamp(36px, 6vw, 56px);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.04;
+    margin-top: 16px;
+    text-wrap: balance;
+  }
+
+  .sub {
+    font-size: 16px;
+    color: var(--asteroid);
+    margin-top: 12px;
+    line-height: 1.6;
+    max-width: 52ch;
+  }
+
+  /* ── Card grid ────────────────────────────────────── */
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  a.card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+    transition:
+      box-shadow 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.12s ease;
+  }
+
+  a.card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: rgba(179, 171, 163, 0.45);
+    transform: translateY(-2px);
+  }
+
+  a.card:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--meteorite);
+    line-height: 1.3;
+  }
+
+  .card-desc {
+    font-size: 14px;
+    color: var(--asteroid);
+    line-height: 1.65;
+    margin-top: 8px;
+    flex: 1;
+  }
+
+  .card-cta {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--solar);
+    margin-top: 24px;
+    letter-spacing: 0.01em;
+    transition: color 0.12s ease;
+  }
+
+  a.card:hover .card-cta { color: var(--solar-hover); }
+
+  /* ── Catalog link ─────────────────────────────────── */
+
+  .catalog-row {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .catalog-label {
+    font-size: 13px;
+    color: var(--pebble);
+  }
+
+  a.catalog-link {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--solar);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: color 0.12s ease;
+  }
+
+  a.catalog-link:hover { color: var(--solar-hover); }
+
+  /* ── Footer ───────────────────────────────────────── */
+
+  footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-family: 'Azeret Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--moon-rock);
+  }
+
+  /* ── Motion ───────────────────────────────────────── */
+
+  @keyframes card-settle {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  a.card { animation: card-settle 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  a.card:nth-child(1) { animation-delay: 0.05s; }
+  a.card:nth-child(2) { animation-delay: 0.12s; }
+  a.card:nth-child(3) { animation-delay: 0.19s; }
+  a.card:nth-child(4) { animation-delay: 0.26s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    a.card { animation: none; }
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
+
   <header>
     <div class="wordmark">Vast</div>
     <h1>Design Tools</h1>
-    <div class="sub">Guides and references for the Brand &amp; Marketing drive.</div>
+    <div class="sub">Guides and references for the Brand &amp; Marketing shared drive.</div>
   </header>
 
   <div class="cards">
     <a class="card" href="./find-anything.html">
       <div class="card-title">Finding Things on the Drive</div>
       <div class="card-desc">The 30-second guide: how the drive is organized and where to click for what you need.</div>
-      <div class="card-go">Open &rarr;</div>
+      <span class="card-cta">Open &rarr;</span>
     </a>
+
     <a class="card" href="./approved-assets-mockup.html">
       <div class="card-title">Approved Assets: how it works</div>
       <div class="card-desc">How the curated, vetted assets are organized and reached, by type and by product.</div>
-      <div class="card-go">Open &rarr;</div>
+      <span class="card-cta">Open &rarr;</span>
     </a>
+
     <a class="card" href="./vast-drive-migration-status.html">
-      <div class="card-title">Drive Migration — Status</div>
-      <div class="card-desc">Where the reorganization stands: 8 stages, current status badges, and ongoing background tasks.</div>
-      <div class="card-go">Open &rarr;</div>
+      <div class="card-title">Drive Migration &mdash; Status</div>
+      <div class="card-desc">Where the reorganization stands: 8 stages, current status, and ongoing background tasks.</div>
+      <span class="card-cta">Open &rarr;</span>
     </a>
+
     <a class="card" href="./vast-structure-comparison.html">
-      <div class="card-title">Drive Structure — Three Options</div>
-      <div class="card-desc">Option A, B, and C compared with filing rules and trade-offs. For alignment: Abram · James · Rebecca.</div>
-      <div class="card-go">Open &rarr;</div>
+      <div class="card-title">Drive Structure &mdash; Three Options</div>
+      <div class="card-desc">Option A, B, and C compared with filing rules and trade-offs. For Abram &middot; James &middot; Rebecca.</div>
+      <span class="card-cta">Open &rarr;</span>
     </a>
   </div>
 
-  <div style="margin-top:32px; padding-top:22px; border-top:1px solid #D8D5CE;">
-    <a href="./catalog.html" style="font-size:13px; color:#0C447C; text-decoration:none; font-family:'JetBrains Mono',monospace;">View all projects &rarr;</a>
+  <div class="catalog-row">
+    <span class="catalog-label">15 projects documented</span>
+    <a class="catalog-link" href="./catalog.html">View all projects &rarr;</a>
   </div>
 
-  <footer>Brand &amp; Design Systems. For internal reference.</footer>
+  <footer>Brand &amp; Design Systems &nbsp;&middot;&nbsp; Internal reference</footer>
+
 </div>
 </body>
 </html>
