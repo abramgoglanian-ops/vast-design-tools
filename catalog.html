@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vast — Project Catalog</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #F5F3EF; color: #1A1916; padding: 56px 40px; }
+  .wrap { max-width: 900px; margin: 0 auto; }
+
+  /* Header */
+  header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 40px; padding-bottom: 22px; border-bottom: 1px solid #D8D5CE; }
+  .header-left { }
+  .wordmark { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #1A1916; }
+  h1 { font-size: 28px; font-weight: 500; letter-spacing: -0.02em; margin-top: 6px; }
+  .sub { font-size: 14px; color: #7A7870; margin-top: 5px; line-height: 1.5; }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+  .back-link { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #0C447C; text-decoration: none; }
+  .back-link:hover { text-decoration: underline; }
+
+  /* Toggle */
+  .toggle-wrap { display: flex; align-items: center; gap: 10px; }
+  .toggle-label { font-size: 12px; color: #7A7870; }
+  .toggle-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    background: #FFFFFF;
+    border: 1px solid #D8D5CE;
+    border-radius: 5px;
+    padding: 5px 12px;
+    cursor: pointer;
+    color: #1A1916;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .toggle-btn:hover { border-color: #1A1916; }
+  .toggle-btn.active { background: #1A1916; color: #F5F3EF; border-color: #1A1916; }
+
+  /* Section */
+  .section { margin-bottom: 44px; }
+  .section-header { margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #D8D5CE; }
+  .section-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #9A9890; }
+  .section-title { font-size: 18px; font-weight: 500; margin-top: 3px; }
+  .section-note { font-size: 12.5px; color: #7A7870; margin-top: 4px; line-height: 1.5; }
+
+  /* Card grid */
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* Card */
+  .card { background: #FFFFFF; border: 1px solid #D8D5CE; border-radius: 10px; overflow: hidden; }
+  .card-body { padding: 18px 20px 14px; }
+  .card-title { font-size: 15px; font-weight: 500; color: #1A1916; }
+  a.card-title { text-decoration: none; color: #0C447C; }
+  a.card-title:hover { text-decoration: underline; }
+  .card-desc { font-size: 12.5px; color: #5A5850; line-height: 1.55; margin-top: 5px; }
+  .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
+  .card-link { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #0C447C; text-decoration: none; }
+  .card-link:hover { text-decoration: underline; }
+  .card-link-ext { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9A9890; }
+
+  /* Status badges */
+  .badge { display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.03em; padding: 2px 9px; border-radius: 4px; }
+  .b-active  { background: #E6F1FB; color: #0C447C; }
+  .b-done    { background: #E2EFE8; color: #1D5C35; }
+  .b-hold    { background: #FDF0DC; color: #7A4A0A; }
+  .b-draft   { background: #ECEAE5; color: #4A4840; }
+
+  /* Reference panel (hidden by default) */
+  .ref-panel { display: none; background: #F5F3EF; border-top: 1px solid #ECEAE5; padding: 12px 20px 14px; }
+  body.show-ref .ref-panel { display: block; }
+  .ref-row { display: flex; gap: 10px; margin-top: 6px; align-items: baseline; }
+  .ref-row:first-child { margin-top: 0; }
+  .ref-key { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9A9890; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; min-width: 52px; }
+  .ref-val { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #4A4840; line-height: 1.5; word-break: break-all; }
+  .ref-note { font-size: 11.5px; color: #7A7870; line-height: 1.5; }
+
+  /* Footer */
+  footer { margin-top: 20px; padding-top: 18px; border-top: 1px solid #D8D5CE; display: flex; justify-content: space-between; align-items: center; }
+  .footer-note { font-size: 11px; color: #9A9890; line-height: 1.5; }
+  .footer-link { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #0C447C; text-decoration: none; }
+  .footer-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="header-left">
+      <div class="wordmark">Vast</div>
+      <h1>Project Catalog</h1>
+      <div class="sub">Tools and systems built for Vast design · 2025–2026</div>
+    </div>
+    <div class="header-right">
+      <a class="back-link" href="./index.html">&larr; Back to tools hub</a>
+      <div class="toggle-wrap">
+        <span class="toggle-label">Reference view</span>
+        <button class="toggle-btn" id="ref-toggle">Show paths</button>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ─── SECTION 1: Drive Tools ───────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-tag">Drive Tools</div>
+      <div class="section-title">Shared Drive Reference</div>
+      <div class="section-note">Guides and decision documents for the Brand &amp; Marketing Google Drive reorganization.</div>
+    </div>
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-body">
+          <a class="card-title" href="./find-anything.html">Finding Things on the Drive</a>
+          <div class="card-desc">The 30-second guide — 9 zones explained, with click-path chips for 6 common "I want to find..." scenarios.</div>
+          <div class="card-footer">
+            <span class="badge b-done">Complete</span>
+            <a class="card-link" href="./find-anything.html">Open &rarr;</a>
+          </div>
+        </div>
+        <div class="ref-panel">
+          <div class="ref-row"><span class="ref-key">Path</span><span class="ref-val">vast-design-tools/find-anything.html</span></div>
+          <div class="ref-row"><span class="ref-key">Note</span><span class="ref-note">Single-page HTML, no dependencies. Update the zone descriptions if the drive structure changes.</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <a class="card-title" href="./approved-assets-mockup.html">Approved Assets: Two Approaches</a>
+          <div class="card-desc">Visual decision aid comparing Option A (canonical home) and Option B (shortcut index) for the _Approved Assets folder, with a 6-dimension trade-off table.</div>
+          <div class="card-footer">
+            <span class="badge b-done">Complete</span>
+            <a class="card-link" href="./approved-assets-mockup.html">Open &rarr;</a>
+          </div>
+        </div>
+        <div class="ref-panel">
+          <div class="ref-row"><span class="ref-key">Path</span><span class="ref-val">vast-design-tools/approved-assets-mockup.html</span></div>
+          <div class="ref-row"><span class="ref-key">Note</span><span class="ref-note">Decisioned artifact — archived for reference once Option A or B is chosen.</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <a class="card-title" href="./vast-drive-migration-status.html">Drive Migration — Status</a>
+          <div class="card-desc">Living dashboard tracking the 8-stage drive reorganization: what's done, in progress, next, and blocked.</div>
+          <div class="card-footer">
+            <span class="badge b-active">Active</span>
+            <a class="card-link" href="./vast-drive-migration-status.html">Open &rarr;</a>
+          </div>
+        </div>
+        <div class="ref-panel">
+          <div class="ref-row"><span class="ref-key">Path</span><span class="ref-val">vast-design-tools/vast-drive-migration-status.html</span></div>
+          <div class="ref-row"><span class="ref-key">Note</span><span class="ref-note">Needs manual updates as stages flip. Update the badge, date, and progress bar width (currently 50% = 4 of 8). Post Slack update when a stage flips to Done.</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <a class="card-title" href="./vast-structure-comparison.html">Drive Structure — Three Options</a>
+          <div class="card-desc">Option A (lifecycle), B (discipline folders), and C (the blend) compared with filing rules, pros, and watch-outs. Built for the Abram · James · Rebecca alignment meeting.</div>
+          <div class="card-footer">
+            <span class="badge b-done">Complete</span>
+            <a class="card-link" href="./vast-structure-comparison.html">Open &rarr;</a>
+          </div>
+        </div>
+        <div class="ref-panel">
+          <div class="ref-row"><span class="ref-key">Path</span><span class="ref-val">vast-design-tools/vast-structure-comparison.html</span></div>
+          <div class="ref-row"><span class="ref-key">Note</span><span class="ref-note">Decisioned artifact — Option C recommended. Archive once structure is agreed.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ─── SECTION 2: Design Systems ───────────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-tag">Design Systems</div>
+      <div class="section-title">Brand &amp; System Infrastructure</div>
+      <div class="section-note">The tools, themes, and reference systems that define Vast's visual and motion language.</div>
+    </div>
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">Motion Toolkit</div>
+          <div class="card-desc">Easing curves, animation principles, and motion vocabulary drawn from spacecraft hardware. Translates physical mechanisms (dials, latches, panels) into digital motion patterns.</div>
+          <div class="card-footer">
+            <span class="badge b-active">Active</span>
+            <span class="card-link-ext">Local only</span>
+          </div>
+        </div>
+        <div class="ref-panel">
+          <div class="ref-row"><span class="ref-key">Path</span><span class="ref-val">~/Documents/Claude/MotionToolkit/</span></div>
+          <div class="ref-row"><span class="ref-key">Key files</span><span class="ref-val">easing-explorer.html, motion-principles.html, metaphor-map-visual.html, CLAUDE.md</span></div>
+          <div class="ref-row"><span class="ref-key">Note</span><span class="ref-note">Foundation-building phase. Whit is collaborating on refinement. Agency (Antinomy) will produce motion content from this system. Code implementation TBD.</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">Color Pairing System</div>
+          <div class="card-desc">Interactive tool for exploring valid and invalid color pairings within the Vast palette — v4. Includes semantic/categorical token architecture, accessibility guidance, and data viz palette.</div>
+          <div class="card-footer">
+            <span class="badge b-active">Active</span>
+            <span class="card-link-ext">Local only</span>
+          </div>
+        </div>
+        <div class="ref-panel">
+          <div class="ref-row"><span class="ref-key">Path</span><span class="ref-val">~/Documents/Claude/ColorPairingSystem/</span></div>
+          <div class="ref-row"><span class="ref-key">Key files</span><span class="ref-val">color-pairing-visual-v4.html (current), versioned CSS/JS</span></div>
+          <div class="ref-row"><span class="ref-key">Note</span><span class="ref-note">In active revision — addressing saturation, token hierarchy, colorblind validation. Treat values as evolving, not finalized. Solar Orange (#FF5623) is sacred brand-only.</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">Tableau Brand Theme</div>
+          <div class="card-desc">Ready-to-install Tableau workbook theme applying Vast brand identity (colors, typography) to data visualizations. Includes Mac and Windows installers.</div>
+          <div class="card-footer">
+            <span class="badge b-done">Complete</span>
+            <span class="card-link-ext">Local only</span>
+          </div>
+        </div>
+        <div class="ref-panel">
+          <div class="ref-row"><span class="ref-key">Path</span><span class="ref-val">~/Documents/Claude/TableauBrandTheme/</span></div>
+          <div class="ref-row"><span class="ref-key">Key files</span><span class="ref-val">vast-format-theme.json, install-theme-mac.sh, install-theme-windows.ps1, CLAUDE.md</span></div>
+          <div class="ref-row"><span class="ref-key">Note</span><span class="ref-note">Install: Tableau Desktop → Preferences → Import Custom Theme. Font fallbacks: Instrument Sans (Owner's sub), Azeret Mono (Phonic sub).</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">Brand Standards</div>
+          <div class="card-desc">Authoritative Vast brand guidelines — maintained in markdown and synced to the live standards platform.</div>
+          <div class="card-footer">
+            <span class="badge b-active">Active</span>
+            <a class="card-link" href="https://live.standards.site/vast" target="_blank">live.standards.site/vast &rarr;</a>
+          </div>
+        </div>
+        <div class="ref-panel">
+          <div class="ref-row"><span class="ref-key">Path</span><span class="ref-val">~/Documents/Claude/BrandStandards/</span></div>
+          <div class="ref-row"><span class="ref-key">Key files</span><span class="ref-val">standards.md, workflow/ (publishing tools), CLAUDE.md</span></div>
+          <div class="ref-row"><span class="ref-key">Live URL</span><span class="ref-val">https://live.standards.site/vast</span></div>
+          <div class="ref-row"><span class="ref-key">Note</span><span class="ref-note">standards.md is the source of truth. Sync to platform when updated. Brand decisions by James or Hillary.</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">Type Specimen</div>
+          <div class="card-desc">Interactive character grid viewer for Vast's primary typeface (Owner's). Includes font exploration scripts and character set JSON.</div>
+          <div class="card-footer">
+            <span class="badge b-done">Complete</span>
+            <span class="card-link-ext">Local only</span>
+          </div>
+        </div>
+        <div class="ref-panel">
+          <div class="ref-row"><span class="ref-key">Path</span><span class="ref-val">~/Documents/Claude/Type Specimen/</span></div>
+          <div class="ref-row"><span class="ref-key">Key files</span><span class="ref-val">character-grid.html, character-set.json, create_variable_font.py, extract_character_set.py, Owner's Text trial font</span></div>
+          <div class="ref-row"><span class="ref-key">Note</span><span class="ref-note">Python scripts require the trial font file to be present. Viewer is standalone HTML.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ─── SECTION 3: Projects & Research ──────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-tag">Projects &amp; Research</div>
+      <div class="section-title">Audits, Analysis &amp; Explorations</div>
+      <div class="section-note">Project-scoped tools and research documents — typically decisioned artifacts or in-progress scoping work.</div>
+    </div>
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">Website Refresh Audit</div>
+          <div class="card-desc">Component audit, synthesis of 467 Figma comments, and scope decision matrix for the 2026 vast.com refresh in partnership with Antinomy agency.</div>
+          <div class="card-footer">
+            <span class="badge b-hold">On Hold</span>
+            <span class="card-link-ext">Local only</span>
+          </div>
+        </div>
+        <div class="ref-panel">
+          <div class="ref-row"><span class="ref-key">Path</span><span class="ref-val">~/Documents/Claude/WebsiteRefresh/</span></div>
+          <div class="ref-row"><span class="ref-key">Key files</span><span class="ref-val">component-audit.html, scope-decision-matrix.html, synthesis docs, README.md</span></div>
+          <div class="ref-row"><span class="ref-key">Note</span><span class="ref-note">Status as of June 2026: Antinomy paused, awaiting internal decisions. Do not treat scope decisions as final — needs re-validation when project resumes.</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">Stop &amp; Fix Dashboard</div>
+          <div class="card-desc">Gap analysis comparing the Jira "Stop &amp; Fix" dashboard against requirements — identifies missing widgets, wrong data structures, and mismatched metrics.</div>
+          <div class="card-footer">
+            <span class="badge b-done">Complete</span>
+            <span class="card-link-ext">Local only</span>
+          </div>
+        </div>
+        <div class="ref-panel">
+          <div class="ref-row"><span class="ref-key">Path</span><span class="ref-val">~/Documents/Claude/Stop and Fix Dashboard/</span></div>
+          <div class="ref-row"><span class="ref-key">Key files</span><span class="ref-val">gap-analysis.md, requirements.md</span></div>
+          <div class="ref-row"><span class="ref-key">Note</span><span class="ref-note">Decisioned artifact. Based on a specific Jira screenshot — findings may be stale if dashboard has been updated.</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">Illustration Tool</div>
+          <div class="card-desc">Tools and documentation for Vast's technical illustration standards — style guide, gap analysis, and font extraction scripts for the illustration system.</div>
+          <div class="card-footer">
+            <span class="badge b-draft">Early stage</span>
+            <span class="card-link-ext">Local only</span>
+          </div>
+        </div>
+        <div class="ref-panel">
+          <div class="ref-row"><span class="ref-key">Path</span><span class="ref-val">~/Documents/Claude/Illustration Tool/</span></div>
+          <div class="ref-row"><span class="ref-key">Key files</span><span class="ref-val">technical_illustration_style_guide_v2_3.md, gap-analysis.md, requirements.md, create_variable_font.py, extract_character_set.py</span></div>
+          <div class="ref-row"><span class="ref-key">Note</span><span class="ref-note">Partially built — Python scripts exist but no completed interactive tool. Style guide is the primary deliverable so far.</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">Brand Workshop</div>
+          <div class="card-desc">Brand exploration sandbox and workshop reference materials, including findings and executive summary from the brand workshop process.</div>
+          <div class="card-footer">
+            <span class="badge b-done">Complete</span>
+            <span class="card-link-ext">Local only</span>
+          </div>
+        </div>
+        <div class="ref-panel">
+          <div class="ref-row"><span class="ref-key">Path</span><span class="ref-val">~/Documents/Claude/BrandWorkshop/</span></div>
+          <div class="ref-row"><span class="ref-key">Key files</span><span class="ref-val">index.html (workshop tool), fonts/</span></div>
+          <div class="ref-row"><span class="ref-key">Note</span><span class="ref-note">Workshop is complete. Materials archived for reference. No active updates expected.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ─── SECTION 4: Infrastructure ───────────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-tag">Infrastructure</div>
+      <div class="section-title">Tracking &amp; Automations</div>
+      <div class="section-note">Project management and automated workflows that support the design system effort.</div>
+    </div>
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">Design System Updates — Tracker</div>
+          <div class="card-desc">Weekly design system update log and active task queue. Tracks work in progress across typography, color, components, and documentation — weeks 25, 27, and 28 of 2026 documented.</div>
+          <div class="card-footer">
+            <span class="badge b-active">Active</span>
+            <span class="card-link-ext">Local only</span>
+          </div>
+        </div>
+        <div class="ref-panel">
+          <div class="ref-row"><span class="ref-key">Path</span><span class="ref-val">~/Documents/Claude/Design System Updates/</span></div>
+          <div class="ref-row"><span class="ref-key">Key files</span><span class="ref-val">W25-2026.md, W27-2026.md, W28-2026.md, Project Tracker.md, Task Queue.md</span></div>
+          <div class="ref-row"><span class="ref-key">Note</span><span class="ref-note">Fed by the weekly DS update automation in Scheduled/. New week files added each Friday.</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">Scheduled Automations</div>
+          <div class="card-desc">Claude Code skills that run on a schedule: weekly design system update (Friday), meeting summaries (Meetily integration), daily file cleanup, drive migration status check, and Apple Pro Display XDR stock alert.</div>
+          <div class="card-footer">
+            <span class="badge b-active">Active</span>
+            <span class="card-link-ext">Local only</span>
+          </div>
+        </div>
+        <div class="ref-panel">
+          <div class="ref-row"><span class="ref-key">Path</span><span class="ref-val">~/Documents/Claude/Scheduled/</span></div>
+          <div class="ref-row"><span class="ref-key">Automations</span><span class="ref-val">design-system-weekly-update/, meetily-summary-eod/, meetily-summary-noon/, desktop-cleanup/, downloads-end-of-day-organizer/, pro-display-xdr-stock-check/, vast-drive-migration-status/</span></div>
+          <div class="ref-row"><span class="ref-key">Note</span><span class="ref-note">Each subfolder has a SKILL.md defining the automation. Configured in Claude Code settings — session-only, not persistent after Claude exits.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <footer>
+    <div class="footer-note">Brand &amp; Design Systems · Last updated July 2026 · For internal reference</div>
+    <a class="footer-link" href="./index.html">&larr; Back to tools hub</a>
+  </footer>
+
+</div>
+
+<script>
+  const btn = document.getElementById('ref-toggle');
+  btn.addEventListener('click', function() {
+    document.body.classList.toggle('show-ref');
+    this.textContent = document.body.classList.contains('show-ref') ? 'Hide paths' : 'Show paths';
+    this.classList.toggle('active');
+  });
+</script>
+</body>
+</html>
