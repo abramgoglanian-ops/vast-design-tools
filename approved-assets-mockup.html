@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Approved Assets — Two Ways to Build It</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #F5F3EF; color: #1A1916; padding: 44px; max-width: 1080px; margin: 0 auto; }
+
+  header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 22px; padding-bottom: 20px; border-bottom: 1px solid #D8D5CE; }
+  .wordmark { font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+  .doc-meta { text-align: right; }
+  .doc-title { font-size: 21px; font-weight: 500; letter-spacing: -0.02em; }
+  .doc-subtitle { font-size: 13px; color: #7A7870; margin-top: 4px; }
+
+  .intro { font-size: 13.5px; color: #3A3830; line-height: 1.65; margin-bottom: 26px; max-width: 860px; }
+  .intro strong { font-weight: 500; color: #1A1916; }
+  .path-note { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #0C447C; background: #E6F1FB; border: 1px solid #B5D4F4; border-radius: 6px; padding: 8px 12px; display: inline-block; margin-top: 8px; }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .col-head { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+  .col-sub { font-size: 12px; color: #7A7870; margin-bottom: 14px; }
+  .col.b .col-head { color: #1A1916; }
+
+  /* Drive window mock */
+  .win { background: #FFFFFF; border: 1px solid #D8D5CE; border-radius: 8px; overflow: hidden; margin-bottom: 10px; }
+  .win-bar { display: flex; align-items: center; gap: 5px; padding: 9px 13px; background: #F5F3EF; border-bottom: 1px solid #ECEAE5; font-size: 12px; color: #5A5850; flex-wrap: wrap; }
+  .win-bar .crumb { color: #7A7870; }
+  .win-bar .sep { color: #C0BDB5; }
+  .win-bar .here { color: #1A1916; font-weight: 500; }
+  .win-bar.teleport { background: #FDF0DC; border-bottom-color: #F5C4B3; }
+  .win-bar.teleport .crumb, .win-bar.teleport .sep { color: #B07A28; }
+  .win-bar.teleport .here { color: #7A4A0A; }
+  .win-body { padding: 6px 0; }
+  .row { display: flex; align-items: center; gap: 9px; padding: 7px 14px; font-size: 13px; color: #1A1916; }
+  .row .ico { flex-shrink: 0; }
+  .row.file { color: #3A3830; }
+  .muted { color: #9A9890; font-size: 12px; padding: 3px 14px 6px; font-style: italic; }
+
+  svg.ico { width: 17px; height: 17px; display: block; }
+
+  .callout { font-size: 12px; line-height: 1.55; border-radius: 6px; padding: 11px 13px; margin-bottom: 14px; }
+  .callout.good { background: #E1F5EE; border: 1px solid #9FE1CB; color: #0F5A46; }
+  .callout.warn { background: #FDF0DC; border: 1px solid #F5C4B3; color: #7A4A0A; }
+  .callout b { font-weight: 600; }
+
+  .facts { list-style: none; font-size: 12px; color: #5A5850; line-height: 1.5; }
+  .facts li { padding: 5px 0 5px 16px; position: relative; border-top: 1px solid #ECEAE5; }
+  .facts li:first-child { border-top: none; }
+  .facts li::before { content: "—"; position: absolute; left: 0; color: #C0BDB5; }
+  .facts b { color: #1A1916; font-weight: 500; }
+
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #9A9890; margin: 30px 0 14px; padding-bottom: 8px; border-bottom: 1px solid #D8D5CE; }
+  table { width: 100%; border-collapse: collapse; background: #FFFFFF; border: 1px solid #D8D5CE; border-radius: 8px; overflow: hidden; }
+  thead th { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #7A7870; padding: 10px 16px; text-align: left; background: #F5F3EF; border-bottom: 1px solid #D8D5CE; }
+  tbody td { padding: 11px 16px; font-size: 12.5px; vertical-align: top; line-height: 1.5; border-bottom: 1px solid #ECEAE5; }
+  tbody tr:last-child td { border-bottom: none; }
+  td.k { font-weight: 500; width: 26%; }
+  .yes { color: #1D5C35; font-weight: 500; } .no { color: #8C2020; font-weight: 500; }
+
+  footer { margin-top: 26px; padding-top: 18px; border-top: 1px solid #D8D5CE; font-size: 11px; color: #9A9890; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wordmark">Vast</div>
+  <div class="doc-meta">
+    <div class="doc-title">Approved Assets — two ways to build it</div>
+    <div class="doc-subtitle">Same front door · different behavior on click-through</div>
+  </div>
+</header>
+
+<p class="intro">Both options give the team the exact path Hillary described — a type-first <strong>_Approved Assets</strong> folder you open to find vetted content by type. The difference is only visible on the <strong>third click</strong>: whether the files live inside Approved Assets, or whether clicking drops you into the deep Asset Library. Follow the same path in each column:
+  <br><span class="path-note">_Approved Assets  ›  Photo  ›  Haven-1</span>
+</p>
+
+<!-- Shared SVG defs -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <g id="folder"><path d="M2 4.5A1.5 1.5 0 0 1 3.5 3h3.2c.4 0 .78.16 1.06.44L9 4.7h4.5A1.5 1.5 0 0 1 15 6.2v6.3A1.5 1.5 0 0 1 13.5 14h-10A1.5 1.5 0 0 1 2 12.5z" fill="#C9A24B"/></g>
+  </defs>
+</svg>
+
+<div class="cols">
+
+  <!-- OPTION A -->
+  <div class="col a">
+    <div class="col-head">Option A · Canonical home</div>
+    <div class="col-sub">The approved files physically live in Approved Assets.</div>
+
+    <div class="win">
+      <div class="win-bar"><span class="here">_Approved Assets</span></div>
+      <div class="win-body">
+        <div class="row"><svg class="ico" viewBox="0 0 17 17"><use href="#folder"/></svg>Photo</div>
+        <div class="row"><svg class="ico" viewBox="0 0 17 17"><use href="#folder"/></svg>Video</div>
+        <div class="row"><svg class="ico" viewBox="0 0 17 17"><use href="#folder"/></svg>Renders</div>
+        <div class="row"><svg class="ico" viewBox="0 0 17 17"><use href="#folder"/></svg>Illustration</div>
+        <div class="row"><svg class="ico" viewBox="0 0 17 17"><use href="#folder"/></svg>Icons</div>
+        <div class="row"><svg class="ico" viewBox="0 0 17 17"><use href="#folder"/></svg>Key Art</div>
+      </div>
+    </div>
+
+    <div class="win">
+      <div class="win-bar"><span class="crumb">_Approved Assets</span><span class="sep">›</span><span class="here">Photo</span></div>
+      <div class="win-body">
+        <div class="row"><svg class="ico" viewBox="0 0 17 17"><use href="#folder"/></svg>Haven-1</div>
+        <div class="row"><svg class="ico" viewBox="0 0 17 17"><use href="#folder"/></svg>Haven Demo</div>
+        <div class="row"><svg class="ico" viewBox="0 0 17 17"><use href="#folder"/></svg>Haven Station</div>
+        <div class="muted">…all products</div>
+      </div>
+    </div>
+
+    <div class="win">
+      <div class="win-bar"><span class="crumb">_Approved Assets</span><span class="sep">›</span><span class="crumb">Photo</span><span class="sep">›</span><span class="here">Haven-1</span></div>
+      <div class="win-body">
+        <div class="row file"><svg class="ico" viewBox="0 0 17 17"><rect x="3" y="2" width="11" height="13" rx="1.5" fill="#B5C4D4"/></svg>Haven-1_Hero_01.jpg</div>
+        <div class="row file"><svg class="ico" viewBox="0 0 17 17"><rect x="3" y="2" width="11" height="13" rx="1.5" fill="#B5C4D4"/></svg>Haven-1_Cleanroom_02.jpg</div>
+        <div class="muted">…the approved photos, right here</div>
+      </div>
+    </div>
+
+    <div class="callout good"><b>You stayed in Approved Assets the whole time.</b> Hitting "up" walks you back through Approved — you never touched the deep library.</div>
+    <ul class="facts">
+      <li><b>Where files live:</b> in Approved Assets (canonical).</li>
+      <li><b>The Asset Library</b> holds only raw + variations, and truly recedes.</li>
+      <li><b>Ask of Keana:</b> a one-time migration of her in-vertical selects out to Approved Assets.</li>
+    </ul>
+  </div>
+
+  <!-- OPTION B -->
+  <div class="col b">
+    <div class="col-head">Option B · Shortcut index</div>
+    <div class="col-sub">Approved Assets is a set of shortcuts into the library's selects.</div>
+
+    <div class="win">
+      <div class="win-bar"><span class="here">_Approved Assets</span></div>
+      <div class="win-body">
+        <div class="row"><svg class="ico" viewBox="0 0 17 17"><use href="#folder"/></svg>Photo</div>
+        <div class="row"><svg class="ico" viewBox="0 0 17 17"><use href="#folder"/></svg>Video</div>
+        <div class="row"><svg class="ico" viewBox="0 0 17 17"><use href="#folder"/></svg>Renders</div>
+        <div class="row"><svg class="ico" viewBox="0 0 17 17"><use href="#folder"/></svg>Illustration</div>
+        <div class="row"><svg class="ico" viewBox="0 0 17 17"><use href="#folder"/></svg>Icons</div>
+        <div class="row"><svg class="ico" viewBox="0 0 17 17"><use href="#folder"/></svg>Key Art</div>
+      </div>
+    </div>
+
+    <div class="win">
+      <div class="win-bar"><span class="crumb">_Approved Assets</span><span class="sep">›</span><span class="here">Photo</span></div>
+      <div class="win-body">
+        <div class="row"><svg class="ico" viewBox="0 0 17 17"><use href="#folder"/><path d="M9 9l4 0l0 4" fill="none" stroke="#0C447C" stroke-width="1.4"/><path d="M9.5 12.5L13 9" stroke="#0C447C" stroke-width="1.4"/></svg>Haven-1 <span style="color:#0C447C;font-size:11px;font-family:'JetBrains Mono',monospace;margin-left:2px">shortcut</span></div>
+        <div class="row"><svg class="ico" viewBox="0 0 17 17"><use href="#folder"/><path d="M9 9l4 0l0 4" fill="none" stroke="#0C447C" stroke-width="1.4"/><path d="M9.5 12.5L13 9" stroke="#0C447C" stroke-width="1.4"/></svg>Haven Demo <span style="color:#0C447C;font-size:11px;font-family:'JetBrains Mono',monospace;margin-left:2px">shortcut</span></div>
+        <div class="muted">…each product is a shortcut</div>
+      </div>
+    </div>
+
+    <div class="win">
+      <div class="win-bar teleport"><span class="crumb">_Asset Library</span><span class="sep">›</span><span class="crumb">HAVEN-1</span><span class="sep">›</span><span class="crumb">_SELECTS</span><span class="sep">›</span><span class="here">Photography</span></div>
+      <div class="win-body">
+        <div class="row file"><svg class="ico" viewBox="0 0 17 17"><rect x="3" y="2" width="11" height="13" rx="1.5" fill="#B5C4D4"/></svg>Haven-1_Hero_01.jpg</div>
+        <div class="row file"><svg class="ico" viewBox="0 0 17 17"><rect x="3" y="2" width="11" height="13" rx="1.5" fill="#B5C4D4"/></svg>Haven-1_Cleanroom_02.jpg</div>
+        <div class="muted">…same photos — but you're now inside the Library</div>
+      </div>
+    </div>
+
+    <div class="callout warn"><b>The shortcut dropped you into the Asset Library.</b> Same files, but "up" now climbs the <i>Library</i> tree, not Approved — softly reintroducing the "how did I end up in the library" feeling.</div>
+    <ul class="facts">
+      <li><b>Where files live:</b> in Keana's library (Approved is only pointers).</li>
+      <li><b>Zero duplication, nothing of Keana's moves</b> — fastest to stand up.</li>
+      <li><b>Ask of Keana:</b> nothing — her structure is untouched.</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- TRADEOFF TABLE -->
+<div class="section-label">Side by side</div>
+<table>
+  <thead><tr><th></th><th>A · Canonical home</th><th>B · Shortcut index</th></tr></thead>
+  <tbody>
+    <tr><td class="k">Feels like its own place</td><td class="yes">Yes — you stay in Approved</td><td class="no">Partly — click lands you in the Library</td></tr>
+    <tr><td class="k">Library truly recedes</td><td class="yes">Yes</td><td class="no">Not quite</td></tr>
+    <tr><td class="k">Duplication risk</td><td>None (finals vs. raw are different files)</td><td class="yes">None (pure pointers)</td></tr>
+    <tr><td class="k">Touches Keana's structure</td><td>One-time move of her selects out</td><td class="yes">No</td></tr>
+    <tr><td class="k">Speed to stand up</td><td>Moderate</td><td class="yes">Fast (scriptable now)</td></tr>
+    <tr><td class="k">Best when</td><td>You want Approved to be the real home and the library to fade back</td><td>You want it live fast and don't mind the click-through jump</td></tr>
+  </tbody>
+</table>
+
+<footer>Both deliver the type-first Approved Assets destination. A optimizes for a clean, self-contained experience; B optimizes for speed and leaving Keana's library untouched. — Brand &amp; Design Systems</footer>
+
+</body>
+</html>

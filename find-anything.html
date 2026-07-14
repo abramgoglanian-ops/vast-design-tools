@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finding Things on the Drive</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #F5F3EF; color: #1A1916; padding: 48px; max-width: 980px; margin: 0 auto; }
+
+  header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; padding-bottom: 22px; border-bottom: 1px solid #D8D5CE; }
+  .wordmark { font-size: 13px; font-weight: 600; letter-spacing: 0.14em; color: #1A1916; text-transform: uppercase; }
+  .doc-meta { text-align: right; }
+  .doc-title { font-size: 22px; font-weight: 500; letter-spacing: -0.02em; color: #1A1916; line-height: 1.2; }
+  .doc-subtitle { font-size: 13px; color: #7A7870; margin-top: 4px; }
+
+  /* Hero mental model */
+  .hero { background: #1A1916; border-radius: 10px; padding: 30px 34px; margin-bottom: 34px; }
+  .hero-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #7A7870; margin-bottom: 16px; }
+  .hero-rows { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .hero-card { background: #232220; border: 1px solid #33312D; border-radius: 8px; padding: 20px 22px; }
+  .hero-k { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #EF9F27; margin-bottom: 8px; letter-spacing: 0.02em; }
+  .hero-h { font-size: 16px; font-weight: 500; color: #F5F3EF; margin-bottom: 6px; }
+  .hero-p { font-size: 13px; color: #B8B6AE; line-height: 1.6; }
+  .hero-golden { margin-top: 20px; font-size: 14px; color: #F5F3EF; line-height: 1.6; }
+  .hero-golden strong { color: #EF9F27; font-weight: 500; }
+
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #9A9890; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #D8D5CE; }
+
+  .scenarios { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 34px; }
+  .scn { background: #FFFFFF; border: 1px solid #D8D5CE; border-radius: 8px; padding: 18px 20px; }
+  .scn-want { font-size: 14px; font-weight: 500; color: #1A1916; margin-bottom: 10px; }
+  .scn-want span { color: #9A9890; font-weight: 400; }
+  .scn-path { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #0C447C; line-height: 1.6; }
+  .scn-path .chip { background: #E6F1FB; border: 1px solid #B5D4F4; border-radius: 4px; padding: 2px 7px; color: #0C447C; }
+  .scn-path .arrow { color: #9A9890; }
+  .scn-note { font-size: 11.5px; color: #7A7870; margin-top: 9px; line-height: 1.5; }
+
+  /* Zone legend */
+  .legend { background: #FFFFFF; border: 1px solid #D8D5CE; border-radius: 8px; padding: 18px 20px; }
+  .legend-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px 20px; }
+  .lg { display: flex; gap: 9px; align-items: baseline; padding: 4px 0; }
+  .lg .n { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9A9890; min-width: 20px; }
+  .lg .nm { font-size: 12.5px; color: #1A1916; }
+  .lg .nm b { font-weight: 500; }
+  .lg .nm span { color: #7A7870; }
+
+  footer { padding-top: 20px; border-top: 1px solid #D8D5CE; display: flex; justify-content: space-between; align-items: center; margin-top: 30px; }
+  .footer-note { font-size: 11px; color: #9A9890; }
+  .footer-date { font-size: 11px; color: #9A9890; white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wordmark">Vast</div>
+  <div class="doc-meta">
+    <div class="doc-title">Finding things on the drive</div>
+    <div class="doc-subtitle">DESIGN MARKETING — a 30-second guide</div>
+  </div>
+</header>
+
+<!-- MENTAL MODEL -->
+<div class="hero">
+  <div class="hero-label">The whole idea, in one breath</div>
+  <div class="hero-rows">
+    <div class="hero-card">
+      <div class="hero-k">00–08 · numbered zones</div>
+      <div class="hero-h">Where work lives</div>
+      <div class="hero-p">Nine numbered folders at the top. Everything the team makes sits in one of them, in order.</div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-k">_Approved Assets</div>
+      <div class="hero-h">The vetted best, by type</div>
+      <div class="hero-p">Photo, Video, Renders, Illustration, Icons, Key Art — each with a folder per product. Where you go for the approved, ready-to-use assets.</div>
+    </div>
+  </div>
+  <div class="hero-golden">Open <strong>_Approved Assets</strong>, pick the type, pick the product — done. For everything about one product, go to <strong>04 · Products &amp; Programs → [the product]</strong>. The deep <strong>Media Library</strong> is there for variations beyond the approved set — but you'll rarely need it.</div>
+</div>
+
+<!-- SCENARIOS -->
+<div class="section-label">I want to find…</div>
+<div class="scenarios">
+
+  <div class="scn">
+    <div class="scn-want">Approved photos, renders, or key art <span>(e.g. Haven-1)</span></div>
+    <div class="scn-path"><span class="chip">_Approved Assets</span><span class="arrow">→</span><span class="chip">Renders</span><span class="arrow">→</span><span class="chip">Haven-1</span></div>
+    <div class="scn-note">Browse by type, then product. Or go product-first: 04 → Haven-1 → the _Assets doors. Same vetted files either way.</div>
+  </div>
+
+  <div class="scn">
+    <div class="scn-want">The logo or brand guidelines</div>
+    <div class="scn-path"><span class="chip">01 Design Systems</span><span class="arrow">→</span><span class="chip">Brand Foundation</span></div>
+    <div class="scn-note">Logo, type, color, and the rules for using them. (A standards website will host these long-term.)</div>
+  </div>
+
+  <div class="scn">
+    <div class="scn-want">A deck or one-pager to start from</div>
+    <div class="scn-path"><span class="chip">03 Templates</span><span class="arrow">→</span><span class="chip">Presentations</span></div>
+    <div class="scn-note">Production-ready starting points. Open one and go.</div>
+  </div>
+
+  <div class="scn">
+    <div class="scn-want">Everything for a campaign, event, or launch</div>
+    <div class="scn-path"><span class="chip">05 Initiatives</span></div>
+    <div class="scn-note">Anything with a start and end date lives here — even when it's about a product.</div>
+  </div>
+
+  <div class="scn">
+    <div class="scn-want">What a product is, and where its stuff lives</div>
+    <div class="scn-path"><span class="chip">04 Products &amp; Programs</span><span class="arrow">→</span><span class="chip">[product]</span><span class="arrow">→</span><span class="chip">Overview &amp; Links</span></div>
+    <div class="scn-note">Each product's one-page map: what it is, key messaging, and links to everything.</div>
+  </div>
+
+  <div class="scn">
+    <div class="scn-want">Something old or no longer active</div>
+    <div class="scn-path"><span class="chip">08 Archive</span></div>
+    <div class="scn-note">Nothing is deleted — retired work moves here.</div>
+  </div>
+
+</div>
+
+<!-- ZONE LEGEND -->
+<div class="section-label">The nine zones, at a glance</div>
+<div class="legend">
+  <div class="legend-grid">
+    <div class="lg"><span class="n">00</span><span class="nm"><b>Start Here</b> <span>how it works</span></span></div>
+    <div class="lg"><span class="n">01</span><span class="nm"><b>Design Systems</b> <span>brand + how we make things</span></span></div>
+    <div class="lg"><span class="n">02</span><span class="nm"><b>Evergreen</b> <span>permanent programs</span></span></div>
+    <div class="lg"><span class="n">03</span><span class="nm"><b>Templates</b> <span>starting points</span></span></div>
+    <div class="lg"><span class="n">04</span><span class="nm"><b>Products &amp; Programs</b> <span>by product</span></span></div>
+    <div class="lg"><span class="n">05</span><span class="nm"><b>Initiatives</b> <span>time-bound work</span></span></div>
+    <div class="lg"><span class="n">06</span><span class="nm"><b>Web &amp; Digital</b> <span>the website</span></span></div>
+    <div class="lg"><span class="n">07</span><span class="nm"><b>Department</b> <span>how the team runs</span></span></div>
+    <div class="lg"><span class="n">08</span><span class="nm"><b>Archive</b> <span>retired work</span></span></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-note">When in doubt: _Approved Assets for a vetted asset, 04 for a product — or ask the Brand & Design Systems team.</div>
+  <div class="footer-date">Brand &amp; Design Systems</div>
+</footer>
+
+</body>
+</html>
