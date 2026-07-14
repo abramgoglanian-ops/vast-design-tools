@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vast Drive — Migration Status</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #F5F3EF; color: #1A1916; padding: 48px; max-width: 940px; margin: 0 auto; }
+  header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; padding-bottom: 22px; border-bottom: 1px solid #D8D5CE; }
+  .wordmark { font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+  .doc-meta { text-align: right; }
+  .doc-title { font-size: 22px; font-weight: 500; letter-spacing: -0.02em; }
+  .doc-subtitle { font-size: 13px; color: #7A7870; margin-top: 4px; }
+
+  .bar-wrap { margin-bottom: 34px; }
+  .bar-label { font-size: 12px; color: #5A5850; margin-bottom: 8px; }
+  .bar-label b { color: #1A1916; font-weight: 500; }
+  .bar { height: 12px; background: #ECEAE5; border: 1px solid #D8D5CE; border-radius: 6px; overflow: hidden; }
+  .bar-fill { height: 100%; width: 50%; background: #2E7D4F; }
+
+  .stage { display: grid; grid-template-columns: 30px 1fr 120px; gap: 14px; align-items: start; padding: 16px 0; border-bottom: 1px solid #ECEAE5; }
+  .stage:last-child { border-bottom: none; }
+  .num { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #C0BDB5; padding-top: 2px; }
+  .name { font-size: 15px; font-weight: 500; color: #1A1916; }
+  .desc { font-size: 12.5px; color: #5A5850; line-height: 1.55; margin-top: 3px; }
+  .meta { text-align: right; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.03em; padding: 3px 10px; border-radius: 4px; }
+  .b-done { background: #E2EFE8; color: #1D5C35; }
+  .b-prog { background: #E6F1FB; color: #0C447C; }
+  .b-next { background: #FDF0DC; color: #7A4A0A; }
+  .b-block { background: #FDECEA; color: #8C2020; }
+  .b-ongoing { background: #ECEAE5; color: #4A4840; }
+  .date { display: block; font-size: 11px; color: #9A9890; margin-top: 6px; font-family: 'JetBrains Mono', monospace; }
+
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #9A9890; margin: 6px 0 6px; }
+  footer { padding-top: 20px; border-top: 1px solid #D8D5CE; display: flex; justify-content: space-between; align-items: center; margin-top: 30px; }
+  .footer-note { font-size: 11px; color: #9A9890; line-height: 1.5; max-width: 620px; }
+  .footer-date { font-size: 11px; color: #9A9890; white-space: nowrap; }
+  .how { background: #FFFFFF; border: 1px solid #D8D5CE; border-radius: 8px; padding: 14px 18px; font-size: 12px; color: #5A5850; line-height: 1.6; margin-bottom: 28px; }
+  .how b { color: #1A1916; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wordmark">Vast</div>
+  <div class="doc-meta">
+    <div class="doc-title">Drive migration — status</div>
+    <div class="doc-subtitle">DESIGN MARKETING shared drive — where the transition stands</div>
+  </div>
+</header>
+
+<div class="how"><b>How to read this:</b> this is the single source of truth for the reorg. Each stage shows where it stands. We post a short Slack update whenever a stage flips to Done. Questions → Abram or Jessie.</div>
+
+<div class="bar-wrap">
+  <div class="bar-label"><b>4 of 8</b> core stages complete · maintenance running in the background</div>
+  <div class="bar"><div class="bar-fill" style="width:50%"></div></div>
+</div>
+
+<div class="section-label">Stages</div>
+
+<div class="stage">
+  <div class="num">01</div>
+  <div><div class="name">Audit &amp; plan</div><div class="desc">Full drive audit, the eight-zone architecture, and the combined plan — reviewed with James &amp; Hillary.</div></div>
+  <div class="meta"><span class="badge b-done">Done</span><span class="date">Jul 2026</span></div>
+</div>
+
+<div class="stage">
+  <div class="num">02</div>
+  <div><div class="name">New structure stood up</div><div class="desc">The 9 zones, the 12 product hubs, <span style="font-family:'JetBrains Mono',monospace;font-size:11px">_Approved Assets</span>, Overview docs, and the library shortcuts — all live and additive.</div></div>
+  <div class="meta"><span class="badge b-done">Done</span><span class="date">Jul 2026</span></div>
+</div>
+
+<div class="stage">
+  <div class="num">03</div>
+  <div><div class="name">Full folder map</div><div class="desc">Read-only inventory of all ~31k folders with paths — the structural map the migration plan is built from.</div></div>
+  <div class="meta"><span class="badge b-done">Done</span><span class="date">Jul 2026</span></div>
+</div>
+
+<div class="stage">
+  <div class="num">04</div>
+  <div><div class="name">Migration mapping drafted</div><div class="desc">Phase 1 (top level) + Phase 2 (split folders) mapped. In review with Jessie; flagged rows being resolved.</div></div>
+  <div class="meta"><span class="badge b-done">Done</span><span class="date">Jul 2026</span></div>
+</div>
+
+<div class="stage">
+  <div class="num">05</div>
+  <div><div class="name">Team onboarding</div><div class="desc">Start Here doc placed, Slack announcement posted, "how to find anything" one-pager shared. New work starts landing in the new zones.</div></div>
+  <div class="meta"><span class="badge b-prog">In progress</span><span class="date">—</span></div>
+</div>
+
+<div class="stage">
+  <div class="num">06</div>
+  <div><div class="name">Safe-now moves</div><div class="desc">The clean, low-risk relocations: PROGRAMS → 04, DEPARTMENT → 07, EVENTS → 05, SpaceX → 05, Industrial Design → 02, Archive → 08.</div></div>
+  <div class="meta"><span class="badge b-next">Next</span><span class="date">—</span></div>
+</div>
+
+<div class="stage">
+  <div class="num">07</div>
+  <div><div class="name">Split-folder migration</div><div class="desc">Sorting BRAND, Communications, MEDIA PRODUCTION, and MERCHANDISE into their zones per the Phase 2 map.</div></div>
+  <div class="meta"><span class="badge b-next">Later</span><span class="date">—</span></div>
+</div>
+
+<div class="stage">
+  <div class="num">08</div>
+  <div><div class="name">Gated items resolved</div><div class="desc">The Justin My Drive disposition, the ITAR / compliance review, and the Asset Library → Media Library handoff with Keana.</div></div>
+  <div class="meta"><span class="badge b-block">Blocked</span><span class="date">awaiting decisions</span></div>
+</div>
+
+<div class="section-label" style="margin-top:22px">Running in the background</div>
+
+<div class="stage">
+  <div class="num">—</div>
+  <div><div class="name">Approved Assets — selects</div><div class="desc">Curating the best-of per product/type into <span style="font-family:'JetBrains Mono',monospace;font-size:11px">_Approved Assets</span>. Keana on photo/video; Abram + Jessie on renders, key art, illustration, icons.</div></div>
+  <div class="meta"><span class="badge b-ongoing">Ongoing</span></div>
+</div>
+
+<div class="stage">
+  <div class="num">—</div>
+  <div><div class="name">Structure Monitor + monthly sweep</div><div class="desc">Weekly automated drift check to Abram + Jessie (email + Slack), plus the monthly human sweep.</div></div>
+  <div class="meta"><span class="badge b-ongoing">Ongoing</span></div>
+</div>
+
+<footer>
+  <div class="footer-note">Living document — update the badge and date on a stage as it moves. Post the matching Slack update when a stage flips to Done.</div>
+  <div class="footer-date">Last updated: [set on edit]</div>
+</footer>
+
+</body>
+</html>
