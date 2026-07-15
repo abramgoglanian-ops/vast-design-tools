@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asset Library — Structure Options</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',sans-serif;background:#F5F3EF;color:#1A1916;padding:44px 40px;max-width:1180px;margin:0 auto;line-height:1.5}
+  .wordmark{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#1A1916}
+  h1{font-size:26px;font-weight:500;letter-spacing:-.02em;margin-top:6px}
+  .sub{font-size:14px;color:#7A7870;margin-top:5px}
+  .rule{height:1px;background:#D8D5CE;margin:22px 0}
+  h2{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9A9890;margin:30px 0 14px}
+  p{font-size:14px;color:#3A3833;margin-bottom:10px}
+  .concept{background:#fff;border:1px solid #D8D5CE;border-radius:10px;padding:20px 24px}
+  .concept b{font-weight:600}
+  .legend{display:flex;gap:22px;flex-wrap:wrap;font-size:12px;color:#5A5850;margin:12px 0 4px}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .dot{width:11px;height:11px;border-radius:3px;display:inline-block}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .card{background:#fff;border:1px solid #D8D5CE;border-radius:10px;padding:22px 24px}
+  .tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;color:#0C447C;background:#E6F1FB;border:1px solid #B5D4F4;border-radius:5px;padding:2px 9px;margin-bottom:8px}
+  .card h3{font-size:17px;font-weight:500;margin-bottom:3px}
+  .card .desc{font-size:12.5px;color:#7A7870;margin-bottom:16px}
+  .tree{font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.85;color:#1A1916;white-space:pre;background:#FAF9F6;border:1px solid #ECEAE5;border-radius:8px;padding:14px 16px;overflow-x:auto}
+  .tree .front{color:#1A1916;font-weight:500}
+  .tree .brand{color:#1D5C35}
+  .tree .alias{color:#0C447C}
+  .tree .src{color:#9A5B00}
+  .tree .raw{color:#9A9890}
+  .tree .note{color:#9A9890}
+  .tr{margin-top:16px}
+  .tr h4{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#9A9890;margin-bottom:7px}
+  .pro,.con{font-size:12.5px;line-height:1.55;padding-left:18px;position:relative;margin-bottom:5px;color:#3A3833}
+  .pro::before{content:"+";position:absolute;left:2px;color:#1D5C35;font-weight:600}
+  .con::before{content:"–";position:absolute;left:3px;color:#8C2020;font-weight:600}
+  .friction{background:#fff;border:1px solid #D8D5CE;border-radius:10px;padding:22px 24px;margin-top:14px}
+  .frow{display:grid;grid-template-columns:210px 1fr;gap:14px;padding:11px 0;border-bottom:1px solid #ECEAE5;font-size:13px}
+  .frow:last-child{border-bottom:none}
+  .frow .q{font-weight:600;color:#1A1916}
+  .frow .a{color:#3A3833}
+  .bridge{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#0C447C;background:#FAF9F6;border:1px solid #ECEAE5;border-radius:8px;padding:12px 16px;margin:10px 0}
+  footer{margin-top:30px;padding-top:16px;border-top:1px solid #D8D5CE;font-size:11px;color:#9A9890}
+</style>
+</head>
+<body>
+  <div class="wordmark">Vast</div>
+  <h1>Asset Library — two structure options</h1>
+  <div class="sub">One top-level Asset Library for everything approved. Same idea, two ways to arrange it.</div>
+  <div class="rule"></div>
+
+  <div class="concept">
+    <p><b>The shared idea.</b> The Asset Library has one job: the single place you go for anything approved — logos, fonts, color, icons, illustration, key art, renders, photos, video, motion. People browse it <b>type-first</b> (Hillary's order: asset type, then product, then system). Keana's reorg stays exactly as she built it — <b>product-first</b> (product, then system, then type, then selects) — and serves as the source of truth underneath. <b>Alias links bridge the two</b>, so the type-first view is just pointers into Keana's product-first selects. One real file, no duplication, and it updates the moment she updates a select.</p>
+    <div class="legend">
+      <span><span class="dot" style="background:#1A1916"></span> approved brand assets (real files)</span>
+      <span><span class="dot" style="background:#0C447C"></span> alias &rarr; points into the source</span>
+      <span><span class="dot" style="background:#9A5B00"></span> Keana's product-first source of truth</span>
+      <span><span class="dot" style="background:#C0BDB5"></span> raw / originals</span>
+    </div>
+  </div>
+
+  <h2>The two options</h2>
+  <div class="cols">
+
+    <div class="card">
+      <div class="tag">OPTION A</div>
+      <h3>Two rooms</h3>
+      <div class="desc">Both mental models are first-class at the top of the Asset Library: an approved browse-by-type room, and the full library by product.</div>
+<div class="tree"><span class="front">Asset Library/</span>
+├─ <span class="front">Approved — browse by type/</span>   <span class="note">type-first</span>
+│   ├─ <span class="brand">Logos &amp; Identity/</span>        <span class="note">real files</span>
+│   ├─ <span class="brand">Typography/  Color/  Icons/</span>
+│   ├─ <span class="brand">Illustration/  Key Art/</span>
+│   ├─ <span class="front">Photography/</span>
+│   │   ├─ Haven-1        <span class="alias">↗ alias</span>
+│   │   ├─ Haven Station  <span class="alias">↗ alias</span>
+│   │   └─ Astronauts     <span class="alias">↗ alias</span>
+│   ├─ <span class="front">Video/</span>        <span class="alias">↗ aliases</span>
+│   ├─ <span class="front">Renders &amp; CGI/</span> <span class="alias">↗ aliases</span>
+│   └─ <span class="front">Motion/</span>       <span class="alias">↗ aliases</span>
+└─ <span class="src">Full Library — by product/</span>  <span class="note">source</span>
+    ├─ <span class="src">HAVEN STATION/</span>
+    │   └─ PRIMARY STRUCTURE/
+    │       └─ PHOTO · VIDEO · 3D
+    │           └─ <span class="src">SELECTS/</span> <span class="note">← aliases hit here</span>
+    ├─ <span class="src">SATELLITES/ ASTRONAUTS/ …</span>
+    └─ <span class="raw">__ORIGINAL ASSETS/</span>  <span class="note">raw</span>
+</div>
+      <div class="tr">
+        <h4>Trade-offs</h4>
+        <div class="pro">Both audiences served at the top: browse-by-type for most people, by-product for media pros.</div>
+        <div class="pro">Clear line between the curated approved set and the full library.</div>
+        <div class="con">Two things at the top of the folder to explain.</div>
+        <div class="con">The full library being right there can tempt people to grab raw instead of approved.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tag">OPTION B</div>
+      <h3>Front door</h3>
+      <div class="desc">Type-first is the entire face of the Asset Library. Keana's product-first structure sits one level down as the source.</div>
+<div class="tree"><span class="front">Asset Library/</span>   <span class="note">type-first is the whole face</span>
+├─ <span class="brand">Logos &amp; Identity/</span>     <span class="note">real files</span>
+├─ <span class="brand">Typography/  Color/</span>
+├─ <span class="brand">Iconography/  Illustration/</span>
+├─ <span class="brand">Key Art/</span>
+├─ <span class="front">Photography/</span>
+│   ├─ Haven-1        <span class="alias">↗ alias</span>
+│   ├─ Haven Station  <span class="alias">↗ alias</span>
+│   └─ Astronauts     <span class="alias">↗ alias</span>
+├─ <span class="front">Video/</span>          <span class="alias">↗ aliases</span>
+├─ <span class="front">Renders &amp; CGI/</span>   <span class="alias">↗ aliases</span>
+├─ <span class="front">Motion/</span>         <span class="alias">↗ aliases</span>
+└─ <span class="src">_Source (by product)/</span>  <span class="note">tucked down</span>
+    ├─ <span class="src">HAVEN STATION/</span>
+    │   └─ PRIMARY STRUCTURE/
+    │       └─ PHOTO · VIDEO · 3D
+    │           └─ <span class="src">SELECTS/</span>
+    ├─ <span class="src">SATELLITES/ ASTRONAUTS/ …</span>
+    └─ <span class="raw">__ORIGINAL ASSETS/</span>
+</div>
+      <div class="tr">
+        <h4>Trade-offs</h4>
+        <div class="pro">Cleanest face. Type-first IS the structure, matching Hillary's model exactly.</div>
+        <div class="pro">Steers everyone to the approved, type-first view first.</div>
+        <div class="con">Media pros go one level down (_Source) to reach the product-first working structure.</div>
+        <div class="con">Keana's source is de-emphasized — worth confirming she's good with it being tucked.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <h2>How the alias bridge works</h2>
+  <p>An entry in the type-first view is a pointer, not a copy. Following it lands you in Keana's product-first selects:</p>
+  <div class="bridge">Asset Library / Photography / Haven Station   <span style="color:#9A9890">↗ points to</span>   …/HAVEN STATION / PRIMARY STRUCTURE / PHOTO / SELECTS</div>
+  <p>Because it's a pointer, there's one real file. Keana keeps working product-first; everyone else browses type-first; both see the same asset.</p>
+
+  <h2>Anticipated friction with aliases (and how we take it off the team)</h2>
+  <div class="friction">
+    <div class="frow"><div class="q">Nobody creates aliases today</div><div class="a">Most people never will. Almost everyone only ever <b>opens</b> an alias, which behaves exactly like opening a folder — no new skill needed.</div></div>
+    <div class="frow"><div class="q">Who actually makes them</div><div class="a">A small curator group, not the whole team: Keana for photo/video selects, you and Jessie for renders, key art, and brand assets.</div></div>
+    <div class="frow"><div class="q">Day-one setup feels huge</div><div class="a">The initial product aliases get generated in bulk by script (the shortcut creator we already built), not hand-placed. Ongoing, only a new product or select needs an occasional one.</div></div>
+    <div class="frow"><div class="q">People will copy instead of alias</div><div class="a">Guardrail: only the curator group adds to the approved view, and the drift monitor watches this folder. The "shortcut, don't copy" step is in Start Here and the one-pager, with the 4-step how-to.</div></div>
+    <div class="frow"><div class="q">Will a link break</div><div class="a">An alias follows the file even if the original is renamed or moved. The only way to break one is to trash the original — so the archive-don't-delete rule keeps them safe.</div></div>
+    <div class="frow"><div class="q">How do people know it's a link</div><div class="a">Aliases show a small arrow badge on the icon, so it's visually obvious an entry points elsewhere.</div></div>
+  </div>
+
+  <footer>Vast · Brand &amp; Design Systems · draft for discussion with Hillary, Megan, and Keana</footer>
+</body>
+</html>
